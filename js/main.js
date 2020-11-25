@@ -23,6 +23,8 @@ function addTodo(text) {
     console.log(todoItems);
 }
 
+
+
 // Select the form element
 const form = document.querySelector('.myform');
 // Add a submit event listener
@@ -54,8 +56,27 @@ function renderTodo(todo) {
     node.setAttribute('data-key', todo.id);
     // Set the content of the 'tr' element created above
     node.innerHTML = `
-    <th id="${todo.id}">${i}</th>
-    <th>${todo.text}</th>
+    <th><input id="${todo.id}" type="checkbox" /> <label for="${todo.id}" class="tick js-tick"></label></th>
+    <th scope="row" id="${todo.id}">${i}</th>
+    <th scope="row">${todo.text}</th>
+    <th><button class="delete-todo js-delete-todo btn"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+    </svg></button></th>
     `;
     table.append(node);
 }
+
+// Select the entire list
+const list = document.getElementById('mytable');
+list.addEventListener('click', event => {
+  if (event.target.classList.contains('js-tick')) {
+    const itemKey = event.target.parentElement.dataset.key;
+    toggleDone(itemKey);
+  }
+});
+
+function toggleDone(key) {
+    const index = todoItems.findIndex(item => item.id === Number(key));
+    todoItems[index].checked = !todoItems[index].checked;
+    renderTodo(todoItems[index]);
+  }

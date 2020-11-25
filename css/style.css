@@ -1,0 +1,54 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+svg{
+    width: 64px;
+    height: 64px;
+}
+
+.done {
+    text-decoration: line-through;
+}
+
+.tick {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #333;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tick::before {
+    content: '✓';
+    font-size: 20px;
+    display: none;
+}
+
+.done .tick::before {
+    display :inline;
+}
+
+.delete-todo{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.delete-todo svg {
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+}
+input[type="checkbox"] {
+    display: none;
+}
