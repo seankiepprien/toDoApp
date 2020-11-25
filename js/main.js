@@ -1,5 +1,4 @@
 /*
-    TODO: Add a new task (DOM).
     TODO: Complete a task (button/query selector).
     TODO: Toggle between buttons.
     TODO: remove tasks from completed tab (class remove).
