@@ -8,7 +8,7 @@
 
 // Create an array that will hold the list items
 let todoItems = [];
-// Create an increment for the # column
+// Create an increment for the # columns
 let i = 0;
 
 function addTodo(text) {
