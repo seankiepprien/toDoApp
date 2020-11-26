@@ -23,7 +23,11 @@ function addTodo(text) {
     console.log(todoItems);
 }
 
-
+function toggleDone(key) {
+    const index = todoItems.findIndex(item => item.id === Number(key));
+    todoItems[index].checked = !todoItems[index].checked;
+    renderTodo(todoItems[index]);
+  }
 
 // Select the form element
 const form = document.querySelector('.myform');
@@ -31,7 +35,7 @@ const form = document.querySelector('.myform');
 form.addEventListener('submit', event => {
     // Prevent page refresh on submit
     event.preventDefault();
-// Select the text inputfgdfg
+// Select the text input
 const input = document.getElementById('formInput');
 
 // Get the value of the input and remove whitespaces
@@ -46,6 +50,7 @@ if(text !== '') {
 function renderTodo(todo) {
     // Select the first element with an id of table
     const table = document.getElementById("mytable");
+    const item = document.querySelector(`[data-key='${todo.id}']`);
     // Create an increment for the # column
     // Use the ternary operator to chec if 'todo-item' is true
     // If so, assing 'done' to 'isChecked'. Otherwise, assing an empty string
@@ -53,6 +58,7 @@ function renderTodo(todo) {
     // Create a tr element and assing it to 'node'
     const node = document.createElement("tr");
     // Set the class attributes
+    node.setAttribute('class', `todo-item ${isChecked}`);
     node.setAttribute('data-key', todo.id);
     // Set the content of the 'tr' element created above
     node.innerHTML = `
@@ -63,20 +69,22 @@ function renderTodo(todo) {
     <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
     </svg></button></th>
     `;
-    table.append(node);
+    // If the item already exists in the DON
+    if (item) {
+        // Replace it
+        table.replaceChild(node, item);
+    } else {
+        // Otherwise append it to the end of the list
+        table.append(node);
+    }
 }
 
 // Select the entire list
-const list = document.getElementById('mytable');
-list.addEventListener('click', event => {
+const table = document.getElementById('mytable');
+table.addEventListener('click', event => {
   if (event.target.classList.contains('js-tick')) {
     const itemKey = event.target.parentElement.dataset.key;
     toggleDone(itemKey);
   }
 });
 
-function toggleDone(key) {
-    const index = todoItems.findIndex(item => item.id === Number(key));
-    todoItems[index].checked = !todoItems[index].checked;
-    renderTodo(todoItems[index]);
-  }
